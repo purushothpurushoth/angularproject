@@ -1,4 +1,4 @@
- name: Angular Deployment
+name: Angular Deployment
 
 on:
   push:
@@ -28,7 +28,7 @@ jobs:
         uses: jakejarvis/s3-sync-action@v0.4.0
         with:
           aws-key: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret: ${{ secrets.SECRET_ACCESS_KEY }}
+          aws-secret: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
           source-dir: dist/my-first-project
           dest-bucket: your-s3-bucket
@@ -39,5 +39,3 @@ jobs:
         with:
           cloudfront-distribution-id: E3I8YYIJ90V9BM
           paths: '/*'
-
-
