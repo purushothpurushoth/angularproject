@@ -35,7 +35,7 @@ jobs:
           args: --delete
 
       - name: CloudFront Invalidation
-        uses: jakejarvis/cloudfront-invalidate-action@v2
+        uses: muratiger/invalidate-cloudfront-and-wait-for-completion-action@master
         with:
           cloudfront-distribution-id: E3I8YYIJ90V9BM
           paths: '/*'
