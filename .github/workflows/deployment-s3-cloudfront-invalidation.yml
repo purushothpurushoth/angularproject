@@ -23,20 +23,30 @@ jobs:
 
       - name: Build Angular App
         run: npm run build
-      
-      - name: Configure AWS credentials
-        id: creds
+
+      - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.SECRET_ACCESS_KEY }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
 
-      - name: Upload to S3
-        uses: jakejarvis/s3-sync-action@v0.4.0
-        with:
-          source-dir: dist/my-first-project/
-          dest-bucket: 331952164793-fastccinboxnxnew-parameterservice-dev-origin
+      - name: Deploy static site to S3 bucket
+        run: aws s3 sync dist/my-first-project/ s3://331952164793-fastccinboxnxnew-parameterservice-dev-origin --delete  
+      
+      # - name: Configure AWS credentials
+      #   id: creds
+      #   uses: aws-actions/configure-aws-credentials@v1
+      #   with:
+      #     aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      #     aws-secret-access-key: ${{ secrets.SECRET_ACCESS_KEY }}
+      #     aws-region: us-east-1
+
+      # - name: Upload to S3
+      #   uses: jakejarvis/s3-sync-action@v0.4.0
+      #   with:
+      #     source-dir: dist/my-first-project/
+      #     dest-bucket: 331952164793-fastccinboxnxnew-parameterservice-dev-origin
 
       - name: CloudFront Invalidation
         uses: muratiger/invalidate-cloudfront-and-wait-for-completion-action@master
