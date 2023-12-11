@@ -31,8 +31,7 @@ jobs:
           aws-secret: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
           source-dir: dist/my-first-project
-          dest-bucket: your-s3-bucket
-          args: --delete
+          dest-bucket: 331952164793-fastccinboxnxnew-parameterservice-dev-origin
 
       - name: CloudFront Invalidation
         uses: muratiger/invalidate-cloudfront-and-wait-for-completion-action@master
