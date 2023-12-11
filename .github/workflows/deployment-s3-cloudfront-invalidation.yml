@@ -33,24 +33,10 @@ jobs:
           
 
       - name: Deploy static site to S3 bucket
-        run: aws s3 sync dist/my-first-project/ s3://331952164793-fastccinboxnxnew-parameterservice-dev-origin --delete  
-      
-      # - name: Configure AWS credentials
-      #   id: creds
-      #   uses: aws-actions/configure-aws-credentials@v1
-      #   with:
-      #     aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      #     aws-secret-access-key: ${{ secrets.SECRET_ACCESS_KEY }}
-      #     aws-region: us-east-1
+        run: aws s3 cp dist/my-first-project/ s3://331952164793-fastccinboxnxnew-parameterservice-dev-origin --r
 
-      # - name: Upload to S3
-      #   uses: jakejarvis/s3-sync-action@v0.4.0
-      #   with:
-      #     source-dir: dist/my-first-project/
-      #     dest-bucket: 331952164793-fastccinboxnxnew-parameterservice-dev-origin
-
-      - name: CloudFront Invalidation
-        uses: muratiger/invalidate-cloudfront-and-wait-for-completion-action@master
-        with:
-          cloudfront-distribution-id: E3I8YYIJ90V9BM
-          paths: '/*'
+      - name: Invalidate CloudFront
+        uses: chetan/invalidate-cloudfront-action@v2
+        env:
+          DISTRIBUTION: E3I8YYIJ90V9BM
+          PATHS: "/*"
