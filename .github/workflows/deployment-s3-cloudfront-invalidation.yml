@@ -1,0 +1,43 @@
+ name: Angular Deployment
+
+on:
+  push:
+    branches:
+      - AngularProject
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Build Angular App
+        run: npm run build
+
+      - name: Upload to S3
+        uses: jakejarvis/s3-sync-action@v0.4.0
+        with:
+          aws-key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret: ${{ secrets.SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+          source-dir: dist/my-first-project
+          dest-bucket: your-s3-bucket
+          args: --delete
+
+      - name: CloudFront Invalidation
+        uses: shilangyu/cloudfront-invalidation-action@v1
+        with:
+          cloudfront-distribution-id: E3I8YYIJ90V9BM
+          paths: '/*'
+
+
