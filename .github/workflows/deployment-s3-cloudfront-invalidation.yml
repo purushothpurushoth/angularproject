@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - AngularProject
+permissions:
+  id-token: write   
+  contents: read        
 
 jobs:
   build:
@@ -25,7 +28,7 @@ jobs:
         run: npm run build
 
       - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v1
+        uses: aws-actions/configure-aws-credentials@v1.7.0
         with:
           role-to-assume: arn:aws:iam::331952164793:role/github
           role-session-name: GitHub_to_AWS_via_FederatedOIDC
@@ -33,13 +36,13 @@ jobs:
           
 
       - name: Deploy static site to S3 bucket
-        run: aws s3 cp dist/my-first-project/browser s3://331952164793-fastccinboxnxnew-parameterservice-dev-origin --recursive
+        run: aws s3 cp dist/my-first-project/browser s3://331952164793-ntst-inbox-dev-origin --recursive
 
 
       - name: Invalidate CloudFront
         uses: chetan/invalidate-cloudfront-action@v2
         env:
-          DISTRIBUTION: E3I8YYIJ90V9BM
+          DISTRIBUTION: E10IZ9893S3L7E
           PATHS: "/*"
         
       - name: Get Invalidation Message
