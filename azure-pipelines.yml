@@ -7,7 +7,7 @@ trigger:
 - AngularProject
 
 pool:
-  vmImage: ubuntu-latest
+  vmImage: self_hosted_machine
 
 steps:
 - script: echo Hello, world!
