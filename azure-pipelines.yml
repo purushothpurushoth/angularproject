@@ -7,8 +7,10 @@ trigger:
 - AngularProject
 
 pool:
-  vmImage: ubuntu-latest
-
+  name: 'default'
+  vmImage: 'selfhosted'
+  
+  
 steps:
 
 - script: |
