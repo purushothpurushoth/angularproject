@@ -7,7 +7,7 @@ trigger:
 - AngularProject
 
 pool:
-  vmImage:ubuntu-latest
+  vmImage: 'ubuntu-latest'
   
   
 steps:
