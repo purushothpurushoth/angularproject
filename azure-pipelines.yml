@@ -42,6 +42,6 @@ steps:
     deployToSlotOrASE: true
     ResourceGroupName: 'web-app-resource-group'
     SlotName: 'qa-webapp'
-    packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
+    packageForLinux: '$(Build.ArtifactStagingDirectory)/**/*.zip'
     RuntimeStack: 'NODE|18-lts'
     StartupCommand: 'pm2 serve /home/site/wwwroot --no-daemon'
